@@ -5,7 +5,6 @@ const parentRegister = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
-
         const existingParent = await Parent.findOne({
             email:  req.body.email
         });
@@ -89,14 +88,14 @@ const getParentDetails = async (req, res) => {
     }
 }
 
-// const deleteStudent = async (req, res) => {
-//     try {
-//         const result = await Student.findByIdAndDelete(req.params.id)
-//         res.send(result)
-//     } catch (error) {
-//         res.status(500).json(err);
-//     }
-// }
+const deleteParent = async (req, res) => {
+    try {
+        const result = await Parent.findByIdAndDelete(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500).json(err);
+    }
+}
 
 // const deleteStudents = async (req, res) => {
 //     try {
@@ -275,7 +274,7 @@ module.exports = {
     parentLogIn,
     getParents,
     getParentDetails,
-    // deleteStudents,
+    deleteParent,
     // deleteStudent,
     // updateStudent,
     // studentAttendance,

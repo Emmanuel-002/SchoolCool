@@ -5,6 +5,10 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    recipientID: {
+        type: String,
+        required: true,
+    },
     authorName: {
         type: String,
         default: 'Anonymous',
@@ -38,20 +42,8 @@ const messageSchema = new mongoose.Schema({
             body:{
                 type: String,
                 default: ''
-            },
-            authorEmail:{
-                type: String,
-                required: true
-            },
-            authorID:{
-                type: String,
-                default:''
             }
         }
-    },
-    school: {
-        type: String,
-        required: true,
     },
 });
 

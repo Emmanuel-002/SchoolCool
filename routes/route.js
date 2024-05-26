@@ -27,7 +27,7 @@ const {
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
 // const { parentRegister, parentLogIn, getParents, getParentDetail, deleteParents, deleteParentsByStudent, deleteParent, updateSubject} = require('../controllers/parent-controller.js');
-const { parentRegister, getParents, getParentDetails, parentLogIn } = require('../controllers/parent-controller.js');
+const { parentRegister, getParents, getParentDetails, parentLogIn, deleteParent } = require('../controllers/parent-controller.js');
 const { addClassroom, classroomList } = require('../controllers/classroom-controller.js');
 
 // Admin
@@ -71,6 +71,7 @@ router.get("/Admin/parents/:id", getParents);
 router.get("/Admin/parents/parent/:id", getParentDetails);
 router.post('/ParentLogin', parentLogIn);
 router.get("/Parent/student/:id", getParentStudents);
+router.delete('/Parent/:id', deleteParent);
 
 // Teacher
 
@@ -102,8 +103,8 @@ router.put("/Notice/:id", updateNotice)
 
 router.post('/MessageCreate', messageCreate);
 router.get('/MessageList/:id', messageList);
-router.get('/Message/:id', getMessage)
-router.put('/Messages/:id', replyMessage)
+router.get('/Message/:id', getMessage);
+router.put('/Message/reply/:id', replyMessage);
 
 // Sclass
 
