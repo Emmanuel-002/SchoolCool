@@ -29,6 +29,10 @@ const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeac
 // const { parentRegister, parentLogIn, getParents, getParentDetail, deleteParents, deleteParentsByStudent, deleteParent, updateSubject} = require('../controllers/parent-controller.js');
 const { parentRegister, getParents, getParentDetails, parentLogIn } = require('../controllers/parent-controller.js');
 const { addClassroom, classroomList } = require('../controllers/classroom-controller.js');
+const { getAllUsers } = require('../controllers/homepage-controller.js');
+
+// Homepage
+router.get("/", getAllUsers)
 
 // Admin
 router.post('/AdminReg', adminRegister);
