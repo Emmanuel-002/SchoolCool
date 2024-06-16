@@ -40,7 +40,6 @@ const messageList = async (req, res) => {
 };
 
 const replyMessage = async (req, res) => {
-    console.log(req.body)
     try {
         let message = await Message.findById(req.params.id);
         if (message) {
@@ -51,7 +50,6 @@ const replyMessage = async (req, res) => {
                 body:req.body.text,
                 date: new Date().toLocaleString(),
             }
-            console.log(message)
         } else {
             res.send({ message: "No message found" });
         }
