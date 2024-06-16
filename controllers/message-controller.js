@@ -17,7 +17,7 @@ const getMessage = async (req, res) => {
         if (message) {
             res.send(message)
         } else {
-            res.send({ message: "No complains found" });
+            res.send({ message: "No message found" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -26,7 +26,9 @@ const getMessage = async (req, res) => {
 
 const messageList = async (req, res) => {
     try {
-        let messages = await Message.find({authorID: req.params.id});
+        let sentMessages = await Message.find({authorID: req.params.id});
+        let receivedMessages = await Message.find({recipientEmail:req.body.recipientEmail});
+        let messages = [...sentMessages,...receivedMessages]
         if (messages.length > 0) {
             res.send(messages)
         } else {
@@ -38,10 +40,18 @@ const messageList = async (req, res) => {
 };
 
 const replyMessage = async (req, res) => {
+    console.log(req.body)
     try {
         let message = await Message.findById(req.params.id);
         if (message) {
-            message.response.text = req.body.response;
+            recipientEmail = message.recipientEmail;
+            message.responseBody.text = {
+                authorEmail: req.body.authorEmail,
+                authorID:req.body.authorID,
+                body:req.body.text,
+                date: new Date().toLocaleString(),
+            }
+            console.log(message)
         } else {
             res.send({ message: "No message found" });
         }

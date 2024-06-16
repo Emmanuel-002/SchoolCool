@@ -107,7 +107,7 @@ router.put("/Notice/:id", updateNotice)
 router.post('/MessageCreate', messageCreate);
 router.get('/MessageList/:id', messageList);
 router.get('/Message/:id', getMessage)
-router.put('/Messages/:id', replyMessage)
+router.put('/Message/reply/:id', replyMessage)
 
 // Sclass
 
