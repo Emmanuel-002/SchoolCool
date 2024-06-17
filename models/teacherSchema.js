@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const teacherSchema = new mongoose.Schema({
-    fullName: {
+    fullname: {
         type: String,
         required: true,
     },
