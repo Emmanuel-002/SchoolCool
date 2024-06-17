@@ -30,10 +30,8 @@ const teacherRegister = async (req, res) => {
 };
 
 const teacherLogIn = async (req, res) => {
-    console.log(req.body.password)
     try {
         let teacher = await Teacher.findOne({ email: req.body.email });
-        console.log(await bcrypt.compare(req.body.password, teacher.password));
         if (teacher) {
             const validated = await bcrypt.compare(req.body.password, teacher.password);
             if (validated) {
