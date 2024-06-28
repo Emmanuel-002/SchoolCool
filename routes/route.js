@@ -35,6 +35,7 @@ import { getHomepageInfo } from '../controllers/homepage-controller.js';
 
 // Homepage
 router.get("/", getHomepageInfo)
+router.get("/*", getHomepageInfo)
 
 // Admin
 router.post('/AdminReg', adminRegister);
