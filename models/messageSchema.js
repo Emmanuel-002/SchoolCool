@@ -5,9 +5,13 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    recipientID:{
+        type: String,
+        required: true
+    },
     recipientEmail:{
         type: String,
-        // required: true
+        required: true
     },
     authorName: {
         type: String,
@@ -53,6 +57,6 @@ const messageSchema = new mongoose.Schema({
             }
         }
     },
-});
+}, { timestamps: true });
 
 export default mongoose.model("message", messageSchema);
