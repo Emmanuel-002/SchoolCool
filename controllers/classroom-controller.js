@@ -1,9 +1,9 @@
-const Classroom = require('../models/classroomSchema.js');
-const Student = require('../models/studentSchema.js');
-const Subject = require('../models/subjectSchema.js');
-const Teacher = require('../models/teacherSchema.js');
+import Classroom from '../models/classroomSchema.js'
+import Student from '../models/studentSchema.js'
+import Subject from '../models/subjectSchema.js'
+import Teacher from '../models/teacherSchema.js'
 
-const addClassroom = async (req, res) => {
+export const addClassroom = async (req, res) => {
     try {
         const classroom = new Classroom({
             blockName: req.body.blockName,
@@ -30,7 +30,7 @@ const addClassroom = async (req, res) => {
     }
 };
 
-const classroomList = async (req, res) => {
+export const classroomList = async (req, res) => {
     try {
         let classrooms = await Classroom.find({ school: req.params.id })
         if (classrooms.length > 0) {
@@ -43,7 +43,7 @@ const classroomList = async (req, res) => {
     }
 };
 
-const getClassroomDetail = async (req, res) => {
+export const getClassroomDetail = async (req, res) => {
     try {
         let sclass = await Sclass.findById(req.params.id);
         if (sclass) {
@@ -74,7 +74,7 @@ const getClassroomDetail = async (req, res) => {
 //     }
 // }
 
-const deleteClassroom = async (req, res) => {
+export const deleteClassroom = async (req, res) => {
     try {
         const deletedClass = await Sclass.findByIdAndDelete(req.params.id);
         if (!deletedClass) {
@@ -89,7 +89,7 @@ const deleteClassroom = async (req, res) => {
     }
 }
 
-const deleteClassrooms = async (req, res) => {
+export const deleteClassrooms = async (req, res) => {
     try {
         const deletedClasses = await Sclass.deleteMany({ school: req.params.id });
         if (deletedClasses.deletedCount === 0) {
@@ -105,4 +105,4 @@ const deleteClassrooms = async (req, res) => {
 }
 
 
-module.exports = { addClassroom, classroomList, deleteClassroom, deleteClassrooms, getClassroomDetail };
+// module.exports = { addClassroom, classroomList, deleteClassroom, deleteClassrooms, getClassroomDetail };

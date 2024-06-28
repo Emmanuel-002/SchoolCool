@@ -1,10 +1,10 @@
-const Parent = require('../models/parentSchema.js');
-const Student = require('../models/studentSchema.js');
-const Teacher = require('../models/teacherSchema.js');
-const Classroom = require('../models/sclassSchema.js');
-const Notice = require('../models/noticeSchema.js')
+import Parent from '../models/parentSchema.js'
+import Student from '../models/studentSchema.js'
+import Teacher from '../models/teacherSchema.js'
+import Classroom from '../models/sclassSchema.js'
+import Notice from '../models/noticeSchema.js'
 
-const getHomepageInfo = async (req, res) => {
+export const getHomepageInfo = async (req, res) => {
     try {
         let parents = await Parent.find();
         let students = await Student.find()
@@ -21,6 +21,6 @@ const getHomepageInfo = async (req, res) => {
     }
 };
 
-module.exports = {
-    getHomepageInfo
-};
+// module.exports = {
+//     getHomepageInfo
+// };

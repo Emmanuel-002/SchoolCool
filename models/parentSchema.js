@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 const parentSchema = new mongoose.Schema({
     fullname: {
@@ -27,12 +27,12 @@ const parentSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: "parent"
+        default: "Parent"
     },
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin',
-        // required: true,
+        required: true,
     },
     attendance: [{
         date: {
@@ -48,4 +48,4 @@ const parentSchema = new mongoose.Schema({
     }]
 }, { timestamps: true });
 
-module.exports = mongoose.model("parent", parentSchema)
+export default mongoose.model("parent", parentSchema)

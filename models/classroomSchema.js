@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 const classroomSchema = new mongoose.Schema({
     blockName: {
@@ -19,4 +19,4 @@ const classroomSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model("classroom", classroomSchema);
+export default mongoose.model("classroom", classroomSchema);

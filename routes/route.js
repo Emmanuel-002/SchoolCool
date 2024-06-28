@@ -1,13 +1,15 @@
-const router = require('express').Router();
+import {Router} from 'express'
+
+const router = Router();
 
 // const { adminRegister, adminLogIn, deleteAdmin, getAdminDetail, updateAdmin } = require('../controllers/admin-controller.js');
 
-const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
+import { adminRegister, adminLogIn, getAdminDetail} from '../controllers/admin-controller.js';
 
-const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } = require('../controllers/class-controller.js');
-const { complainCreate, complainList, getComplain, replyComplain, messageCreate, messageList, replyMessage, getMessage } = require('../controllers/message-controller.js');
-const { noticeCreate, noticeList, deleteNotices, deleteNotice, updateNotice } = require('../controllers/notice-controller.js');
-const {
+import { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } from '../controllers/class-controller.js'
+import {  messageCreate, messageList, replyMessage, getMessage } from '../controllers/message-controller.js';
+import { noticeCreate, noticeList, deleteNotices, deleteNotice, updateNotice } from '../controllers/notice-controller.js'
+import {
     studentRegister,
     studentLogIn,
     getStudents,
@@ -23,13 +25,13 @@ const {
     removeStudentAttendanceBySubject,
     removeStudentAttendance, 
     assignParent,
-    getParentStudents} = require('../controllers/student_controller.js');
-const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
-const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+    getParentStudents} from '../controllers/student_controller.js';
+import { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } from '../controllers/subject-controller.js';
+import { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } from '../controllers/teacher-controller.js';
 // const { parentRegister, parentLogIn, getParents, getParentDetail, deleteParents, deleteParentsByStudent, deleteParent, updateSubject} = require('../controllers/parent-controller.js');
-const { parentRegister, getParents, getParentDetails, parentLogIn } = require('../controllers/parent-controller.js');
-const { addClassroom, classroomList } = require('../controllers/classroom-controller.js');
-const { getHomepageInfo } = require('../controllers/homepage-controller.js');
+import { parentRegister, getParents, getParentDetails, parentLogIn, deleteParent, deleteParents } from '../controllers/parent-controller.js';
+import { addClassroom, classroomList } from '../controllers/classroom-controller.js';
+import { getHomepageInfo } from '../controllers/homepage-controller.js';
 
 // Homepage
 router.get("/", getHomepageInfo)
@@ -75,6 +77,8 @@ router.get("/Admin/parents/:id", getParents);
 router.get("/Admin/parents/parent/:id", getParentDetails);
 router.post('/ParentLogin', parentLogIn);
 router.get("/Parent/student/:id", getParentStudents);
+router.delete("/Parent/:id", deleteParent);
+router.delete("/Parents/:id", deleteParents);
 
 // Teacher
 
@@ -139,4 +143,4 @@ router.delete("/SubjectsClass/:id", deleteSubjectsByClass)
 router.post('/ClassroomCreate', addClassroom);
 router.get('/Classroom/:id', classroomList);
 
-module.exports = router;
+export default router;

@@ -1,13 +1,12 @@
-const bcrypt = require('bcrypt');
-const Admin = require('../models/adminSchema.js');
-const Sclass = require('../models/sclassSchema.js');
-const Student = require('../models/studentSchema.js');
-const Teacher = require('../models/teacherSchema.js');
-const Subject = require('../models/subjectSchema.js');
-const Notice = require('../models/noticeSchema.js');
-const Complain = require('../models/messageSchema.js');
+import bcrypt from 'bcrypt'
+import Admin from '../models/adminSchema.js'
+import Sclass from '../models/sclassSchema.js'
+import Student from '../models/studentSchema.js'
+import Teacher from '../models/teacherSchema.js'
+import Subject from '../models/subjectSchema.js'
+import Notice from '../models/noticeSchema.js'
 
-const adminRegister = async (req, res) => {
+export const adminRegister = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
@@ -32,7 +31,7 @@ const adminRegister = async (req, res) => {
     }
 };
 
-const adminLogIn = async (req, res) => {
+export const adminLogIn = async (req, res) => {
     if (req.body.email && req.body.password) {
         let admin = await Admin.findOne({ email: req.body.email });
         if (admin) {
@@ -51,7 +50,7 @@ const adminLogIn = async (req, res) => {
     }
 };
 
-const getAdminDetail = async (req, res) => {
+export const getAdminDetail = async (req, res) => {
     try {
         let admin = await Admin.findById(req.params.id);
         if (admin) {
@@ -102,4 +101,4 @@ const getAdminDetail = async (req, res) => {
 
 // module.exports = { adminRegister, adminLogIn, getAdminDetail, deleteAdmin, updateAdmin };
 
-module.exports = { adminRegister, adminLogIn, getAdminDetail };
+// export default { adminRegister, adminLogIn, getAdminDetail };

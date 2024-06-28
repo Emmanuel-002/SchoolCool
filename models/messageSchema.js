@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 const messageSchema = new mongoose.Schema({
     authorID: {
@@ -55,4 +55,4 @@ const messageSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("message", messageSchema);
+export default mongoose.model("message", messageSchema);

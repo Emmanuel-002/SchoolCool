@@ -1,6 +1,6 @@
-const Message = require('../models/messageSchema.js');
+import Message from '../models/messageSchema.js';
 
-const messageCreate = async (req, res) => {
+export const messageCreate = async (req, res) => {
     req.body.messageBody.text.date = new Date().toLocaleString()
     try {
         const message = new Message(req.body)
@@ -11,7 +11,7 @@ const messageCreate = async (req, res) => {
     }
 };
 
-const getMessage = async (req, res) => {
+export const getMessage = async (req, res) => {
     try {
         let message = await Message.findById(req.params.id);
         if (message) {
@@ -24,7 +24,7 @@ const getMessage = async (req, res) => {
     }
 };
 
-const messageList = async (req, res) => {
+export const messageList = async (req, res) => {
     try {
         let sentMessages = await Message.find({authorID: req.params.id});
         let receivedMessages = await Message.find({recipientEmail:req.body.recipientEmail});
@@ -39,7 +39,7 @@ const messageList = async (req, res) => {
     }
 };
 
-const replyMessage = async (req, res) => {
+export const replyMessage = async (req, res) => {
     try {
         let message = await Message.findById(req.params.id);
         if (message) {
@@ -59,4 +59,4 @@ const replyMessage = async (req, res) => {
     }
 };
 
-module.exports = { messageCreate, messageList, getMessage, replyMessage };
+// module.exports = { messageCreate, messageList, getMessage, replyMessage };
