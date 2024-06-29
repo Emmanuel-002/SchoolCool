@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 app.use(cors())
-// app.use(express.static(resolve(__dirname, "public/app")));
+app.use(express.static(resolve(__dirname, "public/app")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ limit: '10mb' }))
 
@@ -26,7 +26,7 @@ mongoose
 
 app.use('/api', Routes);
 
-// app.get("*", (req, res) => res.sendFile(resolve(__dirname, "public/app", "index.html")));
+app.get("*", (req, res) => res.sendFile(resolve(__dirname, "public/app", "index.html")));
 
 
 app.listen(process.env.PORT, () => {
