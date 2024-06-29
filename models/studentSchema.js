@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 const studentSchema = new mongoose.Schema({
-    firstName: {
+    firstname: {
         type: String,
         required: true
     },
-    middleName: {
+    middlename: {
         type: String,
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true
     },
@@ -91,4 +91,4 @@ const studentSchema = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model("student", studentSchema);
+export default mongoose.model("student", studentSchema);

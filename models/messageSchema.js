@@ -1,7 +1,15 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 const messageSchema = new mongoose.Schema({
     authorID: {
+        type: String,
+        required: true
+    },
+    recipientID:{
+        type: String,
+        required: true
+    },
+    recipientEmail:{
         type: String,
         required: true
     },
@@ -41,7 +49,7 @@ const messageSchema = new mongoose.Schema({
             },
             authorEmail:{
                 type: String,
-                required: true
+                // required: true
             },
             authorID:{
                 type: String,
@@ -49,10 +57,6 @@ const messageSchema = new mongoose.Schema({
             }
         }
     },
-    school: {
-        type: String,
-        required: true,
-    },
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model("message", messageSchema);
+export default mongoose.model("message", messageSchema);

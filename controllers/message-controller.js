@@ -1,9 +1,22 @@
-const Message = require('../models/messageSchema.js');
+import Message from '../models/messageSchema.js';
+import Parent from '../models/parentSchema.js';
+import Student from '../models/studentSchema.js'
+import Teacher from '../models/teacherSchema.js';
+import Admin from '../models/adminSchema.js';
 
-const messageCreate = async (req, res) => {
+export const messageCreate = async (req, res) => {
+    let recipientID = ''
+    const admin = await Admin.findOne({email:req.body.recipientEmail})
+    const teacher = await Teacher.findOne({email:req.body.recipientEmail})
+    const student = await Student.findOne({email:req.body.recipientEmail})
+    const parent = await Parent.findOne({email:req.body.recipientEmail})
+    recipientID = admin?.id || teacher?.id || student?.id || parent?.id
     req.body.messageBody.text.date = new Date().toLocaleString()
     try {
-        const message = new Message(req.body)
+        const message = new Message({
+            ...req.body,
+            recipientID
+        })
         const result = await message.save()
         res.send(result)
     } catch (err) {
@@ -11,22 +24,25 @@ const messageCreate = async (req, res) => {
     }
 };
 
-const getMessage = async (req, res) => {
+export const getMessage = async (req, res) => {
     try {
         let message = await Message.findById(req.params.id);
         if (message) {
             res.send(message)
         } else {
-            res.send({ message: "No complains found" });
+            res.send({ message: "No message found" });
         }
     } catch (err) {
         res.status(500).json(err);
     }
 };
 
-const messageList = async (req, res) => {
+export const messageList = async (req, res) => {
     try {
-        let messages = await Message.find({authorID: req.params.id});
+        let sent = await Message.find({authorID: req.params.id});
+        let received = await Message.find({recipientID:req.params.id});
+        let messages = [...sent,...received]
+        messages = messages.sort((a,b)=>b.createdAt-a.createdAt)
         if (messages.length > 0) {
             res.send(messages)
         } else {
@@ -37,18 +53,19 @@ const messageList = async (req, res) => {
     }
 };
 
-const replyMessage = async (req, res) => {
+export const replyMessage = async (req, res) => {
     try {
-        let message = await Message.findById(req.params.id);
-        if (message) {
-            message.response.text = req.body.response;
-        } else {
-            res.send({ message: "No message found" });
-        }
-        message.save()
+        let result = await Message.findByIdAndUpdate(req.params.id,
+            { $set: {responseBody:{text:{
+                authorEmail: req.body.authorEmail,
+                authorID:req.body.authorID,
+                body:req.body.text,
+                date: new Date().toLocaleString(),
+            }}} },
+            { new: true }
+        );
+        res.send(result);
     } catch (err) {
         res.status(500).json(err);
     }
 };
-
-module.exports = { messageCreate, messageList, getMessage, replyMessage };

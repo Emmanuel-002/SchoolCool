@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt');
-const Parent = require('../models/parentSchema.js');
+import bcrypt from 'bcrypt'
+import Parent from '../models/parentSchema.js';
 
-const parentRegister = async (req, res) => {
+export const parentRegister = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
@@ -19,9 +19,7 @@ const parentRegister = async (req, res) => {
                 school: req.body.adminID,
                 password: hashedPass,
             });
-
             let result = await parent.save();
-
             result.password = undefined;
             res.send(result);
         }
@@ -30,18 +28,13 @@ const parentRegister = async (req, res) => {
     }
 };
 
-const parentLogIn = async (req, res) => {
+export const parentLogIn = async (req, res) => {
     try {
         let parent = await Parent.findOne({ email: req.body.email });
         if (parent) {
             const validated = await bcrypt.compare(req.body.password, parent.password);
             if (validated) {
-                // parent = await student.populate("school", "schoolName")
-                // student = await student.populate("sclassName", "sclassName")
                 parent.password = undefined;
-                // console.log(parent)
-                // student.examResult = undefined;
-                // student.attendance = undefined;
                 res.send(parent);
             } else {
                 res.send({ message: "Invalid password" });
@@ -54,7 +47,7 @@ const parentLogIn = async (req, res) => {
     }
 };
 
-const getParents = async (req, res) => {
+export const getParents = async (req, res) => {
     try {
         let parents = await Parent.find();
         if (parents.length > 0) {
@@ -70,7 +63,7 @@ const getParents = async (req, res) => {
     }
 };
 
-const getParentDetails = async (req, res) => {
+export const getParentDetails = async (req, res) => {
     try {
         let parent = await Parent.findById(req.params.id)
             // .populate("school", "schoolName")
@@ -89,27 +82,27 @@ const getParentDetails = async (req, res) => {
     }
 }
 
-// const deleteStudent = async (req, res) => {
-//     try {
-//         const result = await Student.findByIdAndDelete(req.params.id)
-//         res.send(result)
-//     } catch (error) {
-//         res.status(500).json(err);
-//     }
-// }
+export const deleteParent = async (req, res) => {
+    try {
+        const result = await Parent.findByIdAndDelete(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500).json(err);
+    }
+}
 
-// const deleteStudents = async (req, res) => {
-//     try {
-//         const result = await Student.deleteMany({ school: req.params.id })
-//         if (result.deletedCount === 0) {
-//             res.send({ message: "No students found to delete" })
-//         } else {
-//             res.send(result)
-//         }
-//     } catch (error) {
-//         res.status(500).json(err);
-//     }
-// }
+export const deleteParents = async (req, res) => {
+    try {
+        const result = await Parent.deleteMany({ school: req.params.id })
+        if (result.deletedCount === 0) {
+            res.send({ message: "No students found to delete" })
+        } else {
+            res.send(result)
+        }
+    } catch (error) {
+        res.status(500).json(err);
+    }
+}
 
 // const deleteStudentsByClass = async (req, res) => {
 //     try {
@@ -270,20 +263,20 @@ const getParentDetails = async (req, res) => {
 // };
 
 
-module.exports = {
-    parentRegister,
-    parentLogIn,
-    getParents,
-    getParentDetails,
-    // deleteStudents,
-    // deleteStudent,
-    // updateStudent,
-    // studentAttendance,
-    // deleteStudentsByClass,
-    // updateExamResult,
+// module.exports = {
+//     parentRegister,
+//     parentLogIn,
+//     getParents,
+//     getParentDetails,
+//     deleteParents,
+//     deleteParent,
+//     // updateStudent,
+//     // studentAttendance,
+//     // deleteStudentsByClass,
+//     // updateExamResult,
 
-    // clearAllStudentsAttendanceBySubject,
-    // clearAllStudentsAttendance,
-    // removeStudentAttendanceBySubject,
-    // removeStudentAttendance,
-};
+//     // clearAllStudentsAttendanceBySubject,
+//     // clearAllStudentsAttendance,
+//     // removeStudentAttendanceBySubject,
+//     // removeStudentAttendance,
+// };

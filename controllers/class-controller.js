@@ -1,9 +1,9 @@
-const Sclass = require('../models/sclassSchema.js');
-const Student = require('../models/studentSchema.js');
-const Subject = require('../models/subjectSchema.js');
-const Teacher = require('../models/teacherSchema.js');
+import Sclass from '../models/sclassSchema.js'
+import Student from '../models/studentSchema.js'
+import Subject from '../models/subjectSchema.js'
+import Teacher from '../models/teacherSchema.js'
 
-const sclassCreate = async (req, res) => {
+export const sclassCreate = async (req, res) => {
     try {
         const sclass = new Sclass({
             sclassName: req.body.sclassName,
@@ -27,7 +27,7 @@ const sclassCreate = async (req, res) => {
     }
 };
 
-const sclassList = async (req, res) => {
+export const sclassList = async (req, res) => {
     try {
         let sclasses = await Sclass.find({ school: req.params.id })
         if (sclasses.length > 0) {
@@ -40,7 +40,7 @@ const sclassList = async (req, res) => {
     }
 };
 
-const getSclassDetail = async (req, res) => {
+export const getSclassDetail = async (req, res) => {
     try {
         let sclass = await Sclass.findById(req.params.id);
         if (sclass) {
@@ -55,7 +55,7 @@ const getSclassDetail = async (req, res) => {
     }
 }
 
-const getSclassStudents = async (req, res) => {
+export const getSclassStudents = async (req, res) => {
     try {
         let students = await Student.find({ sclassName: req.params.id })
         if (students.length > 0) {
@@ -71,7 +71,7 @@ const getSclassStudents = async (req, res) => {
     }
 }
 
-const deleteSclass = async (req, res) => {
+export const deleteSclass = async (req, res) => {
     try {
         const deletedClass = await Sclass.findByIdAndDelete(req.params.id);
         if (!deletedClass) {
@@ -86,7 +86,7 @@ const deleteSclass = async (req, res) => {
     }
 }
 
-const deleteSclasses = async (req, res) => {
+export const deleteSclasses = async (req, res) => {
     try {
         const deletedClasses = await Sclass.deleteMany({ school: req.params.id });
         if (deletedClasses.deletedCount === 0) {
@@ -102,4 +102,4 @@ const deleteSclasses = async (req, res) => {
 }
 
 
-module.exports = { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents };
+// module.exports = { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents };
